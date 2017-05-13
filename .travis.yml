@@ -13,6 +13,9 @@ branches:
   only: 
     - master
 
+before_install:
+  - sudo apt-get update
+
 script:
   - mvn test -U -X
 
