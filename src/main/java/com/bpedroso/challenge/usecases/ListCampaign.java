@@ -21,28 +21,28 @@ import com.bpedroso.challenge.repository.CampaignRepository;
  */
 @Component
 public class ListCampaign {
-	
+
 	private final Logger log = LoggerFactory.getLogger(ListCampaign.class);
-	
+
 	private CampaignRepository campaignRepository;
 
 	@Autowired
-	public ListCampaign(CampaignRepository talbeDataCampaignGateway) {
-		this.campaignRepository = talbeDataCampaignGateway;
+	public ListCampaign(CampaignRepository campaignRepository) {
+		this.campaignRepository = campaignRepository;
 	}
 
 	public List<Campaign> list(final Integer code) {
 		final List<Campaign> actualCampaignList = new ArrayList<Campaign>();
-		if(code == null) {
+		if (code == null) {
 			actualCampaignList.addAll(listCampaigns());
 		} else {
 			actualCampaignList.addAll(findCampaign(code));
 		}
-		
-		if(log.isDebugEnabled()) {
+
+		if (log.isDebugEnabled()) {
 			log.debug("Campaigns found: {}", actualCampaignList.toString());
 		}
-		
+
 		return actualCampaignList;
 	}
 
