@@ -9,7 +9,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.gemfire.mapping.Region;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -21,18 +23,23 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 public class Campaign {
 
 	@Id
+	@JsonProperty(value = "code", required = true)
 	private Integer code;
 
+	@JsonProperty(value = "name", required = true)
 	private String name;
 
+	@JsonProperty(value = "idTeam", required = true)
 	private Integer idTeam;
 
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonProperty(value = "beginDate", required = true)
 	private LocalDate beginDate;
 
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonProperty(value = "endDate", required = true)
 	private LocalDate endDate;
 
 	public Campaign() {
@@ -40,6 +47,19 @@ public class Campaign {
 
 	public Campaign(Integer code) {
 		this.code = code;
+	}
+
+	@JsonCreator
+	private Campaign(@JsonProperty(value = "code", required = true) Integer code,
+			@JsonProperty(value = "name", required = true) String name,
+			@JsonProperty(value = "idTeam", required = true) Integer idTeam,
+			@JsonProperty(value = "beginDate", required = true) LocalDate beginDate,
+			@JsonProperty(value = "endDate", required = true) LocalDate endDate) {
+		this.code = code;
+		this.name = name;
+		this.idTeam = idTeam;
+		this.endDate = endDate;
+		this.beginDate = beginDate;
 	}
 
 	public int getCode() {

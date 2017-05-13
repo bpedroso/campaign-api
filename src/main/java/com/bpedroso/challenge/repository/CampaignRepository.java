@@ -15,6 +15,6 @@ public interface CampaignRepository extends GemfireRepository<Campaign, String> 
 	
 	List<Campaign> findByEndDateGreaterThan(LocalDate endDate);
 	
-	List<Campaign> findByBeginDateGreaterThanEqualAndEndDateLessThanEqual(LocalDate beginDate, LocalDate endDate);
+	List<Campaign> findByBeginDateGreaterThanEqualOrEndDateLessThanEqual(LocalDate beginDate, LocalDate endDate);
 
 }

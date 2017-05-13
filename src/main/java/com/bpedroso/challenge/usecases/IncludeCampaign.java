@@ -41,12 +41,13 @@ public class IncludeCampaign {
 
 	public void updateCampaign(String campaign) throws JsonParseException, JsonMappingException, IOException {
 		this.log.info("Updating campaigns: {}", campaign);
+		
 		final Campaign actualCampaign = new ObjectMapper().readValue(campaign, Campaign.class);
-
+				
 		//Somar 1 dia no termino da vigencia dos que estão dentro do período
-		final List<Campaign> campaignsInside = this.campaignRepository.findByBeginDateGreaterThanEqualAndEndDateLessThanEqual(
-				actualCampaign.getBeginDate(),
-				actualCampaign.getEndDate());
+		final List<Campaign> campaignsInside = this.campaignRepository
+				.findByBeginDateGreaterThanEqualOrEndDateLessThanEqual(actualCampaign.getBeginDate(),
+						actualCampaign.getEndDate());
 
 		campaignsInside.stream().forEach(campaignInside -> {
 			LocalDate endDate = campaignInside.getEndDate();

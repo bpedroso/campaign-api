@@ -20,7 +20,7 @@ public class DeleteCampaign {
 		this.campaignRepository = talbeDataCampaignGateway;
 	}
 	
-	public void delete(int code) {
+	public void delete(Integer code) {
 		log.info("Deleting campaign {}", code);
 		this.campaignRepository.delete(new Campaign(code));
 	}
