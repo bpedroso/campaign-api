@@ -1,6 +1,8 @@
 # campaign-api
 Serviço de Campanha
 
+[![Build Status](https://travis-ci.org/bpedroso/campaign-api.svg)](https://travis-ci.org/bpedroso/campaign-api)
+
 ### Code Architecture
 
 http://blog.cleancoder.com/uncle-bob/2016/01/04/ALittleArchitecture.html
