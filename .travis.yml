@@ -2,19 +2,19 @@ language: java
 
 jdk: oraclejdk8
 
-sudo: required
-
-install: true
+sudo: false
 
 services:
   - docker
 
 branches:
-  only: 
+  only:
     - master
 
 before_install:
   - sudo apt-get update
+
+install: true
 
 script:
   - mvn test -U -X

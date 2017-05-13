@@ -8,6 +8,6 @@ else
     TAG="$TRAVIS_BRANCH"
 fi
 
-echo "docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TAG ."
-docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TAG .
+echo "docker build -f src/main/docker/Dockerfile -t $TRAVIS_REPO_SLUG:$TAG ."
+docker build -f src/main/docker/Dockerfile -t $TRAVIS_REPO_SLUG:$TAG .
 docker push $TRAVIS_REPO_SLUG
