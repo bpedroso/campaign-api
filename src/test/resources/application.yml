@@ -1,0 +1,12 @@
+info:
+  build:
+    version: ${project.version}
+    name: ${project.name}
+
+# Default profile
+spring:
+  profiles:
+    active: test
+    
+server:
+  port: 5555

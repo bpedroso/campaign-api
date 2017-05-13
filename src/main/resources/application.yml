@@ -1,0 +1,20 @@
+info:
+  build:
+    version: ${project.version}
+    name: ${project.name}
+
+# Default profile
+spring:
+  profiles:
+    active: local
+
+security:
+  basic:
+    enabled: false
+  management:
+    security:
+      enabled: false
+      
+app:
+  region:
+    name: TeamPartner

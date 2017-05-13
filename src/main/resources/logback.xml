@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_DIR"    value="./log" />
+    <property name="LOG_LEVEL"  value="INFO" />
+    <property name="FILENAME"   value="campaign" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+          <Pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} [%t] messageId=%X{messageId} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${FILENAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- keep 30 days' worth of history capped at 2GB total size -->
+            <fileNamePattern>${LOG_DIR}/${FILENAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>20</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} [%t] messageId=%X{messageId} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+    
+  <logger name="com.bpedroso.challenge"  level="${LOG_LEVEL}" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+
+    <appender name="AsyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FileAppender" />
+    </appender>
+
+	<logger name="com.bpedroso.challenge" level="${LOG_LEVEL}" />
+
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="AsyncFileAppender" />
+    </root>
+
+</configuration>
