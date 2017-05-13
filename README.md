@@ -1,13 +1,18 @@
 # campaign-api
 Serviço de Campanha
 
+## Code Architecture
+
 http://blog.cleancoder.com/uncle-bob/2016/01/04/ALittleArchitecture.html
   -> https://martinfowler.com/eaaCatalog/repository.html
-  
+
+## Status Utilizados nos controllers
+
 https://httpstatuses.com/
-  -> 200 OK
-  -> 204 No Content
-  -> 500 Internal Server Error
+
+  - 200 OK
+  - 204 No Content
+  - 500 Internal Server Error
 
 ### Repository
 Optei trabalhar com GemFire por ser um NoSQL que consigo trabalhar tanto com a instalação deste NoSQL quanto com a subida dele em memória (embedado).
