@@ -16,7 +16,7 @@ import com.gemstone.gemfire.cache.GemFireCache;
 @EnableGemfireRepositories(basePackages = "com.bpedroso.challenge.repository")
 public class GemFireConfig {
 
-	@Value("${app.region.name:TeamPartner}")
+	@Value("${api.region.name:TeamPartner}")
 	private String regionName;
 
     @Bean

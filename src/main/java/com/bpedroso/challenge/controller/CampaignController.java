@@ -63,16 +63,26 @@ public class CampaignController {
 			@ApiResponse(code = 500, message = "Failure", response = MessageContext.class) 
 			})
 	@GetMapping(produces = APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<MessageContext> list(@RequestHeader(value="messageId", required=false) String messageId, 
-			@RequestParam(value = "code", required=false) Integer code) {
+	public ResponseEntity<MessageContext> list(
+			@RequestHeader(value="messageId", required = false) String messageId, 
+			@RequestParam(value = "code", required = false) Integer code,
+			@RequestParam(value = "idTeam", required = false) Integer idTeam) {
 		ResponseEntity<MessageContext> responseEntity;
 		try {
-			final List<Campaign> campaign = this.useCaseListCampaign.list(code);
+			final List<Campaign> campaigns;
+			
+			if(code != null) {
+				campaigns = this.useCaseListCampaign.listByCode(code);
+			} else if(idTeam != null) {				
+				campaigns = this.useCaseListCampaign.listByTeam(idTeam);
+			} else {				
+				campaigns = this.useCaseListCampaign.list();
+			}
 
-			if(isEmpty(campaign)) {
+			if(isEmpty(campaigns)) {
 				throw new NoContentException(NO_CONTENT.getReasonPhrase());
 			}
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now(), campaign), OK);
+			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now(), campaigns), OK);
 		} catch (NoContentException e) {
 			LOGGER.warn(NO_CONTENT.getReasonPhrase());
 			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now()), NO_CONTENT);

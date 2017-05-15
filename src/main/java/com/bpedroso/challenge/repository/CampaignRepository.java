@@ -10,7 +10,9 @@ import com.bpedroso.challenge.contracts.controller.Campaign;
 public interface CampaignRepository extends GemfireRepository<Campaign, String> {
 
 	Campaign findByCode(int code);
-
+	
+	List<Campaign> findByIdTeam(int idTeam);
+	
 	List<Campaign> findAll();
 	
 	List<Campaign> findByEndDateGreaterThan(LocalDate endDate);

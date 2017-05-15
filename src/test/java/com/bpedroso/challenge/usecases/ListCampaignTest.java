@@ -37,7 +37,7 @@ public class ListCampaignTest {
 	public void list_withCode_onlyOneCampaignAndCallfindByCode() {
 		doReturn(new Campaign()).when(campaignRepository).findByCode(any(Integer.class));
 		
-		List<Campaign> actualCampaigns = listCampaign.list(1);
+		List<Campaign> actualCampaigns = listCampaign.listByCode(1);
 		assertNotNull(actualCampaigns);
 		assertEquals(EXPECTED_CAMPAIGNS_SIZE_WITH_CODE, actualCampaigns.size());
 		
@@ -49,7 +49,7 @@ public class ListCampaignTest {
 	public void list_withoutCode_twoCampaignsAndCallfindByEndDateGreaterThan() {
 		doReturn(Arrays.asList(new Campaign(), new Campaign())).when(campaignRepository).findByEndDateGreaterThan(any(LocalDate.class));
 		
-		List<Campaign> actualCampaigns = listCampaign.list(null);
+		List<Campaign> actualCampaigns = listCampaign.listByCode(null);
 		assertNotNull(actualCampaigns);
 		assertEquals(EXPECTED_CAMPAIGNS_SIZE_WITHOUT_CODE, actualCampaigns.size());
 		

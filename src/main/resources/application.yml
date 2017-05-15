@@ -2,6 +2,8 @@ info:
   build:
     version: ${project.version}
     name: ${project.name}
+server:
+  port: 8081
 
 # Default profile
 spring:
@@ -15,6 +17,6 @@ security:
     security:
       enabled: false
       
-app:
+api:
   region:
     name: TeamPartner

@@ -3,6 +3,7 @@ package com.bpedroso.challenge.contracts.controller;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
@@ -20,7 +21,12 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 @Region("TeamPartner")
 @JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, setterVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Campaign {
+public class Campaign implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@JsonProperty(value = "code", required = true)

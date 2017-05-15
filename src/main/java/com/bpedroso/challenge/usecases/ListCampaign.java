@@ -31,7 +31,7 @@ public class ListCampaign {
 		this.campaignRepository = campaignRepository;
 	}
 
-	public List<Campaign> list(final Integer code) {
+	public List<Campaign> listByCode(final Integer code) {
 		final List<Campaign> actualCampaignList = new ArrayList<Campaign>();
 		if (code == null) {
 			actualCampaignList.addAll(listCampaigns());
@@ -45,6 +45,15 @@ public class ListCampaign {
 
 		return actualCampaignList;
 	}
+	
+	public List<Campaign> list() {
+		final List<Campaign> actualCampaignList = new ArrayList<Campaign>();
+		actualCampaignList.addAll(listCampaigns());
+		if (log.isDebugEnabled()) {
+			log.debug("Campaigns found: {}", actualCampaignList.toString());
+		}
+		return actualCampaignList;
+	}
 
 	private List<Campaign> listCampaigns() {
 		return ofNullable(this.campaignRepository.findByEndDateGreaterThan(now())).orElse(emptyList());
@@ -52,5 +61,9 @@ public class ListCampaign {
 
 	private List<Campaign> findCampaign(final int code) {
 		return singletonList(this.campaignRepository.findByCode(code));
+	}
+
+	public List<Campaign> listByTeam(Integer idTeam) {
+		return ofNullable(this.campaignRepository.findByIdTeam(idTeam)).orElse(emptyList());
 	}
 }
