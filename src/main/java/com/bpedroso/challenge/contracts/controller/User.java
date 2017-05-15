@@ -41,7 +41,7 @@ public class User implements Serializable {
 	@JsonProperty(value = "birth", required = true)
 	private LocalDate birth;
 	
-	private Team team;
+	private Integer idTeam;
 	
 	private List<Campaign> campagns;
 	
@@ -77,12 +77,12 @@ public class User implements Serializable {
 		this.birth = birth;
 	}
 
-	public Team getTeam() {
-		return team;
+	public Integer getIdTeam() {
+		return idTeam;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setIdTeam(Integer idTeam) {
+		this.idTeam = idTeam;
 	}
 	
 	public List<Campaign> getCampagns() {
@@ -95,8 +95,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return format("User [id=%s, fullName=%s, email=%s, birth=%s, team=%s, campagns=%s]", 
-				id, fullName, email, birth, team, campagns);
+		return format("User [id=%s, fullName=%s, email=%s, birth=%s, idteam=%s, campagns=%s]", 
+				id, fullName, email, birth, idTeam, campagns);
 	}
 
 }
