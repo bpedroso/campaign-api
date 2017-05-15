@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bpedroso.challenge.contracts.controller.Campaign;
-import com.bpedroso.challenge.contracts.controller.MessageContext;
+import com.bpedroso.challenge.contracts.controller.MessageCampaign;
 import com.bpedroso.challenge.exceptions.NoContentException;
 import com.bpedroso.challenge.usecases.DeleteCampaign;
 import com.bpedroso.challenge.usecases.IncludeCampaign;
@@ -58,16 +58,16 @@ public class CampaignController {
 		@ApiImplicitParam(name = "code", value = "Código da campanha", required = false, dataType = "int", paramType = "query")
 		})
 	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "Success", response = MessageContext.class),
-			@ApiResponse(code = 204, message = "Success", response = MessageContext.class),
-			@ApiResponse(code = 500, message = "Failure", response = MessageContext.class) 
+			@ApiResponse(code = 200, message = "Success", response = MessageCampaign.class),
+			@ApiResponse(code = 204, message = "Success", response = MessageCampaign.class),
+			@ApiResponse(code = 500, message = "Failure", response = MessageCampaign.class) 
 			})
 	@GetMapping(produces = APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<MessageContext> list(
+	public ResponseEntity<MessageCampaign> list(
 			@RequestHeader(value="messageId", required = false) String messageId, 
 			@RequestParam(value = "code", required = false) Integer code,
 			@RequestParam(value = "idTeam", required = false) Integer idTeam) {
-		ResponseEntity<MessageContext> responseEntity;
+		ResponseEntity<MessageCampaign> responseEntity;
 		try {
 			final List<Campaign> campaigns;
 			
@@ -82,13 +82,13 @@ public class CampaignController {
 			if(isEmpty(campaigns)) {
 				throw new NoContentException(NO_CONTENT.getReasonPhrase());
 			}
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now(), campaigns), OK);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now(), campaigns), OK);
 		} catch (NoContentException e) {
 			LOGGER.warn(NO_CONTENT.getReasonPhrase());
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now()), NO_CONTENT);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now()), NO_CONTENT);
 		} catch (Exception e) {
 			LOGGER.error("Fail to response " + e.getMessage());
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now(), e.getMessage()), INTERNAL_SERVER_ERROR);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now(), e.getMessage()), INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}
@@ -98,19 +98,19 @@ public class CampaignController {
 		@ApiImplicitParam(name = "code", value = "Código da campanha", required = true, dataType = "int", paramType = "query")
 		})
 	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "Success", response = MessageContext.class),
-			@ApiResponse(code = 500, message = "Failure", response = MessageContext.class) 
+			@ApiResponse(code = 200, message = "Success", response = MessageCampaign.class),
+			@ApiResponse(code = 500, message = "Failure", response = MessageCampaign.class) 
 			})
 	@DeleteMapping
-	public ResponseEntity<MessageContext> delete(@RequestHeader(value="messageId", required=false) String messageId, 
+	public ResponseEntity<MessageCampaign> delete(@RequestHeader(value="messageId", required=false) String messageId, 
 			@RequestParam(value = "code", required=true) Integer code) {
-		ResponseEntity<MessageContext> responseEntity;
+		ResponseEntity<MessageCampaign> responseEntity;
 		try {
 			this.useCaseDeleteCampaign.delete(code);
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now()), OK);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now()), OK);
 		} catch (Exception e) {
 			LOGGER.error("Fail to response " + e.getMessage());
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now(), e.getMessage()), INTERNAL_SERVER_ERROR);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now(), e.getMessage()), INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}
@@ -118,24 +118,24 @@ public class CampaignController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "messageId", value = "Message ID para rastreamento", required = false, dataType = "String", paramType = "header") })
 	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "Success", response = MessageContext.class),
-			@ApiResponse(code = 204, message = "Success", response = MessageContext.class),
-			@ApiResponse(code = 500, message = "Failure", response = MessageContext.class) 
+			@ApiResponse(code = 200, message = "Success", response = MessageCampaign.class),
+			@ApiResponse(code = 204, message = "Success", response = MessageCampaign.class),
+			@ApiResponse(code = 500, message = "Failure", response = MessageCampaign.class) 
 			})
 	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<MessageContext> insert(@RequestHeader(value="messageId", required=false) String messageId, 
+	public ResponseEntity<MessageCampaign> insert(@RequestHeader(value="messageId", required=false) String messageId, 
 			@RequestBody String payLoad) {
-		ResponseEntity<MessageContext> responseEntity;
+		ResponseEntity<MessageCampaign> responseEntity;
 		try {
 			this.useCaseIncludeCampaign.updateCampaign(payLoad);
 
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now()), OK);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now()), OK);
 		} catch (IOException e) {
 			LOGGER.warn(e.getMessage());
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now()), BAD_REQUEST);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now()), BAD_REQUEST);
 		} catch (Exception e) {
 			LOGGER.error("Fail to response " + e.getMessage());
-			responseEntity = new ResponseEntity<MessageContext>(new MessageContext(messageId, now(), e.getMessage()), INTERNAL_SERVER_ERROR);
+			responseEntity = new ResponseEntity<MessageCampaign>(new MessageCampaign(messageId, now(), e.getMessage()), INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}

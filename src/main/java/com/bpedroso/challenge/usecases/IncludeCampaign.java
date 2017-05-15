@@ -30,7 +30,7 @@ public class IncludeCampaign {
 	private final Logger log = LoggerFactory.getLogger(IncludeCampaign.class);
 	
 	private final ApplicationEventPublisher publisher;
-	
+
 	private CampaignRepository campaignRepository;
 
 	@Autowired

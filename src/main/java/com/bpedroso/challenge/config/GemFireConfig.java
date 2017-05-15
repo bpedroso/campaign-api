@@ -10,6 +10,8 @@ import org.springframework.data.gemfire.LocalRegionFactoryBean;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 import com.bpedroso.challenge.contracts.controller.Campaign;
+import com.bpedroso.challenge.contracts.controller.Team;
+import com.bpedroso.challenge.contracts.controller.User;
 import com.gemstone.gemfire.cache.GemFireCache;
 
 @Configuration
@@ -37,7 +39,7 @@ public class GemFireConfig {
 	}
 
 	@Bean
-	LocalRegionFactoryBean<String, Campaign> teamPartnerRegion(final GemFireCache cache) {
+	LocalRegionFactoryBean<String, Campaign> teamPartnerRegionCampaign(final GemFireCache cache) {
 		LocalRegionFactoryBean<String, Campaign> region = new LocalRegionFactoryBean<>();
 		region.setCache(cache);
 		region.setClose(false);
@@ -46,4 +48,23 @@ public class GemFireConfig {
 		return region;
 	}
 
+	@Bean
+	LocalRegionFactoryBean<String, User> teamPartnerRegionUser(final GemFireCache cache) {
+		LocalRegionFactoryBean<String, User> region = new LocalRegionFactoryBean<>();
+		region.setCache(cache);
+		region.setClose(false);
+		region.setName(this.regionName);
+		region.setPersistent(false);
+		return region;
+	}
+	
+	@Bean
+	LocalRegionFactoryBean<String, Team> teamPartnerRegionTeam(final GemFireCache cache) {
+		LocalRegionFactoryBean<String, Team> region = new LocalRegionFactoryBean<>();
+		region.setCache(cache);
+		region.setClose(false);
+		region.setName(this.regionName);
+		region.setPersistent(false);
+		return region;
+	}
 }

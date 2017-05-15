@@ -2,41 +2,40 @@ package com.bpedroso.challenge.contracts.controller;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MessageContext implements Serializable {
+public class MessageUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private String uuid;
 	private Instant instant;
-	private List<Campaign> campaigns;
+	private User user;
 	private String responseError;
 
-	public MessageContext() {
+	public MessageUser() {
 	}
 
-	public MessageContext(String uuid, Instant instant) {
+	public MessageUser(String uuid, Instant instant) {
 		super();
 		this.uuid = uuid;
 		this.instant = instant;
 	}
 	
-	public MessageContext(String uuid, Instant instant, String responseError) {
+	public MessageUser(String uuid, Instant instant, String responseError) {
 		super();
 		this.uuid = uuid;
 		this.instant = instant;
 		this.responseError = responseError;
 	}
-	
-	public MessageContext(String uuid, Instant instant, List<Campaign> campaigns) {
+
+	public MessageUser(String uuid, Instant instant, User user) {
 		super();
 		this.uuid = uuid;
 		this.instant = instant;
-		this.campaigns = campaigns;
+		this.user = user;
 	}
 
 	public String getUuid() {
@@ -55,14 +54,14 @@ public class MessageContext implements Serializable {
 		this.responseError = responseError;
 	}
 
-	public List<Campaign> getCampaigns() {
-		return campaigns;
+	public User getUser() {
+		return user;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("MessageContext [uuid=%s, instant=%s, campaigns=%s, responseError=%s]", uuid, 
-				instant, campaigns, responseError);
+		return String.format("MessageContext [uuid=%s, instant=%s, user=%s, responseError=%s]", uuid, 
+				instant, user, responseError);
 	}
 
 }

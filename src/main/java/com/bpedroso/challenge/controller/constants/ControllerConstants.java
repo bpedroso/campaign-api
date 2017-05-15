@@ -7,6 +7,7 @@ public abstract class ControllerConstants {
 
 	// Type
 	public static final String CAMPAIGN = "/campaign";
+	public static final String USER = "/user";
 	public static final String TEAM = "/team";
 
 }
